@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mapper 설정 파일임을 명시하기 위한 DTD 선언 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace는 중복되지않고 고유해야 한다 -->
+  <mapper namespace="com.spring.mapper.BoardMapper">
+  	
+  	<insert id="insertBoard">
+  		INSERT INTO BOARD(
+  			WRITER,
+  			EMAIL,
+  			SUBJECT,
+  			PASSWORD,
+  			REG_DATE,
+  			READ_COUNT,
+  			CONTENT
+  		) VALUES (		<!-- mybatis는 #{}으로 불러옴 -->
+  			#{writer},
+  			#{email},
+  			#{subject},
+  			#{password},
+  			now(),
+  			#{readCount},
+  			#{content}
+  		)
+  	</insert>
+  	
+  </mapper>

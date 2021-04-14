@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- DB 접속을 위한 설정정보 입력 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">				
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/SPRING_BOARD?serverTimezone=UTC"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+
+	<!-- Mybatis 사용을 위한 sqlSessionFactory 컨넥션 입력 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">			<!-- DB 연결 및 SQL 사용을 위한 객체 생성 -->
+		<property name="dataSource" ref="dataSource" />										<!-- sqlSessionFactory는 dataSource를 참조-->			
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>	<!-- Mybatis 설정파일 위치 설정 -->
+		<property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>	<!-- SQL의 연동 위치설정(Mapper) = query문만 따로 빼둠 -->
+																							<!--																							 
+																								 classpath  : src/main/resources를 의미
+																								 ** 		: 디렉터리명 매칭
+																								 *  		: 파일명 매칭
+																							 -->
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"  destroy-method="clearCache">	<!-- DAO인터페이스 사용을 위한 객체 생성 -->
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>			<!-- sqlSession은 sqlSessionFactory를 참조 -->
+	</bean>
+	
+</beans>
