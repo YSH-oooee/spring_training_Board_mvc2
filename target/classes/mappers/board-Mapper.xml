@@ -7,7 +7,7 @@
   <!-- namespace는 중복되지않고 고유해야 한다 -->
   <mapper namespace="com.spring.mapper.BoardMapper">
   	
-  	<insert id="insertBoard">
+  	<insert id="insertBoard" parameterType="com.spring.board.dto.BoardDTO">
   		INSERT INTO BOARD(
   			WRITER,
   			EMAIL,
@@ -26,5 +26,38 @@
   			#{content}
   		)
   	</insert>
+  	
+  	<!-- 
+  		id : DAO와 연결을 위한 값
+  		resultType : 반환되는 데이터의 타입을 명시
+  	 -->
+  	<select id="getAllBoard" resultType="com.spring.board.dto.BoardDTO">
+  		SELECT * FROM BOARD
+  	</select>
+  	
+  	<select id="getOneBoard" parameterType="int" resultType="com.spring.board.dto.BoardDTO">
+  		SELECT * FROM BOARD WHERE NUM=#{num}
+  	</select>
+  	
+  	<update id="increaseReadCount" parameterType="int">
+  		UPDATE 
+  			BOARD 
+  		SET 
+  			READ_COUNT = READ_COUNT + 1 
+  		WHERE 
+  			NUM=#{num}
+  	</update>
+  	
+  	<delete id="deleteBoard" parameterType="int">
+  		DELETE FROM BOARD WHERE NUM=#{num}
+  	</delete>
+  	
+  	<update id="updateBoard" parameterType="com.spring.board.dto.BoardDTO">
+  		UPDATE BOARD SET SUBJECT=#{subject}, CONTENT=#{content} WHERE NUM=#{num}
+  	</update>
+  	
+  	<select id="validateUserCheck" parameterType="com.spring.board.dto.BoardDTO" resultType="com.spring.board.dto.BoardDTO">
+  		SELECT * FROM BOARD WHERE NUM=#{num} and PASSWORD=#{password}
+  	</select>
   	
   </mapper>

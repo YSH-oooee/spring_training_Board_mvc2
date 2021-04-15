@@ -49,7 +49,7 @@
 
 <body>
 	<div align="center" style="padding-top: 100px">
-		<img src="resources/images/spring.PNG" alt="jsp심볼" width="800px" height="500px"><br><br><br><br>
+		<img src="resources/images/spring.png" alt="spring심볼" width="1000px" height="500px"><br><br><br><br>
 		<input type="button" value="게시판 보기" onclick="location.href='boardList'">
 	</div>
 </body>
