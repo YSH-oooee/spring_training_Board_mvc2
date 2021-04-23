@@ -23,7 +23,7 @@
 	
 	<!-- 아래의 행이 반드시 있어야 어노테이션(@)을 읽어올 수 있다 -->
 	<context:component-scan base-package="com.spring.board" />
-	
+	<context:component-scan base-package="com.spring.board_advance" />	
 	
 	
 </beans:beans>
